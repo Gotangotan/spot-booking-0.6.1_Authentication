@@ -1,5 +1,6 @@
 package nl.spotbooking.spotbooking.controller;
 
+import nl.spotbooking.spotbooking.exception.RecordNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,18 +26,20 @@ public class ClientsController {
 
     @GetMapping(value = "/clients/{id}")
     public ResponseEntity<Object> getClient(@PathVariable("id") Long id) {
-        if (this.data.keySet().contains(id)) {
-            return new ResponseEntity<Object>(this.data.get(id), HttpStatus.OK);
+        if (!this.data.keySet().contains(id)) {
+            throw new RecordNotFoundException();
         }
-        else    {
-            return new ResponseEntity<Object>("Record not found", HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<Object>(this.data.get(id),HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/clients/{id}")
     public ResponseEntity<Object> deleteClient(@PathVariable("id") Long id) {
-        this.data.remove(id);
-        return new ResponseEntity<Object>("Record deleted", HttpStatus.OK);
+        if (!this.data.keySet().contains(id)) {
+            throw new RecordNotFoundException();
+        }
+            this.data.remove(id);
+            return new ResponseEntity<Object>("Record deleted", HttpStatus.OK);
+
     }
 
     @PostMapping(value = "/clients")
@@ -48,6 +51,9 @@ public class ClientsController {
 
     @PutMapping(value = "/clients/{id}")
     public ResponseEntity<Object> updateClient(@PathVariable("id") Long id, @RequestBody String clientName) {
+        if (!this.data.keySet().contains(id)) {
+            throw new RecordNotFoundException();
+        }
         this.data.put(id, clientName);
         return new ResponseEntity<Object>("Record updated", HttpStatus.OK);
     }

@@ -1,5 +1,6 @@
 package nl.spotbooking.spotbooking.controller;
 
+import nl.spotbooking.spotbooking.exception.RecordNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,18 +28,20 @@ public class BooksController {
 
     @GetMapping(value = "/books/{id}")
     public ResponseEntity<Object> getBook(@PathVariable("id") Long id) {
-        if (this.data.keySet().contains(id)) {
-            return new ResponseEntity<Object>(this.data.get(id), HttpStatus.OK);
+        if (!this.data.keySet().contains(id)) {
+            throw new RecordNotFoundException();
         }
-        else    {
-            return new ResponseEntity<Object>("Record not found", HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<Object>(this.data.get(id),HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/books/{id}")
     public ResponseEntity<Object> deleteBook(@PathVariable("id") Long id) {
-        this.data.remove(id);
-        return new ResponseEntity<Object>("Record deleted", HttpStatus.OK);
+        if (!this.data.keySet().contains(id)) {
+            throw new RecordNotFoundException();
+        }
+        else    {
+            return new ResponseEntity<Object>("Record not found", HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(value = "/books")
@@ -50,6 +53,9 @@ public class BooksController {
 
     @PutMapping(value = "/books/{id}")
     public ResponseEntity<Object> updateBook(@PathVariable("id") Long id, @RequestBody String clientName) {
+        if (!this.data.keySet().contains(id)) {
+            throw new RecordNotFoundException();
+        }
         this.data.put(id, clientName);
         return new ResponseEntity<Object>("Record updated", HttpStatus.OK);
     }
