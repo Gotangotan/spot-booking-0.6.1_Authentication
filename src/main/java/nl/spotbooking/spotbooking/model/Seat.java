@@ -5,7 +5,7 @@ package nl.spotbooking.spotbooking.model;
 import javax.persistence.*;
 
 @Entity
-public class Seats {
+public class Seat {
 
     // attributen die overeenkomen met de columns in PostgreSQL/SpotBooking/Table/Columns
 
