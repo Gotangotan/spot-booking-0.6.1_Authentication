@@ -1,2 +1,2 @@
-insert into seat (desk) values ('Desk1');
-insert into seat (desk) values ('Desk2');
+insert into date (Date) values ('Desk1');
+insert into date (Date) values ('Desk2');

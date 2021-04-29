@@ -1,42 +1,42 @@
 package nl.spotbooking.spotbooking.service;
 
 import nl.spotbooking.spotbooking.exception.RecordNotFoundException;
-import nl.spotbooking.spotbooking.model.Seat;
-import nl.spotbooking.spotbooking.repository.SeatRepository;
+import nl.spotbooking.spotbooking.model.Date;
+import nl.spotbooking.spotbooking.repository.DateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class SeatServiceImpl implements SeatService{
+public class DateServiceImpl implements DateService {
 
     @Autowired
-    private SeatRepository seatRepository;
+    private DateRepository dateRepository;
 
     @Override
-    public List<Seat> getAllSeats() {
-        return seatRepository.findAll();
+    public List<Date> getAllDates() {
+        return dateRepository.findAll();
     }
 
     @Override
-    public Seat getSeat(long id) {
-        if (seatRepository.existsById(id)) {
-            return seatRepository.findById(id).orElse(null);
+    public Date getDate(long id) {
+        if (dateRepository.existsById(id)) {
+            return dateRepository.findById(id).orElse(null);
         } else {
             throw new RecordNotFoundException("No seat found with this id"  + id);
         }
     }
 
     @Override
-    public void save(Seat seat) {
-        seatRepository.save(seat);
+    public void save(Date date) {
+        dateRepository.save(date);
     }
 
     @Override
     public void deleteById(long id) {
-        if (seatRepository.existsById(id)) {
-            seatRepository.deleteById(id);
+        if (dateRepository.existsById(id)) {
+            dateRepository.deleteById(id);
         } else {
             throw new RecordNotFoundException("No seat found with this id"  + id);
         }

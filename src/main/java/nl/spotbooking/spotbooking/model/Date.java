@@ -5,7 +5,7 @@ package nl.spotbooking.spotbooking.model;
 import javax.persistence.*;
 
 @Entity
-public class Seat {
+public class Date {
 
     // attributen die overeenkomen met de columns in PostgreSQL/SpotBooking/Table/Columns
 
@@ -15,7 +15,7 @@ public class Seat {
     private long id;
 
     @Column
-    private String Desk;
+    private String Date;
 
     @Column
     private String Availability;
@@ -23,12 +23,12 @@ public class Seat {
 
     //getters and setters
 
-    public String getDesk() {
-        return Desk;
+    public String getDate() {
+        return Date;
     }
 
-    public void setDesk(String desk) {
-        Desk = desk;
+    public void setDate(String date) {
+        Date = date;
     }
 
     public String getAvailability() {

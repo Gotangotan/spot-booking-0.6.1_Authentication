@@ -1,7 +1,7 @@
 package nl.spotbooking.spotbooking.controller;
-import nl.spotbooking.spotbooking.model.Seat;
+import nl.spotbooking.spotbooking.model.Date;
 
-import nl.spotbooking.spotbooking.service.SeatService;
+import nl.spotbooking.spotbooking.service.DateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,29 +13,29 @@ import java.util.List;
 public class SeatController {
 
     @Autowired
-    private SeatService seatService;
+    private DateService dateService;
 
-    @GetMapping(value="/seats")
-    public ResponseEntity<Object> getSeats() {
-        List<Seat> seats = seatService.getAllSeats();
-        return new ResponseEntity<>(seats, HttpStatus.OK);
+    @GetMapping(value="/date")
+    public ResponseEntity<Object> getDates() {
+        List<Date> dates = dateService.getAllDates();
+        return new ResponseEntity<>(dates, HttpStatus.OK);
     }
 
-    @GetMapping(value="/seats/{id}")
-    public ResponseEntity<Object> getSeat(@PathVariable("id") long id){
-        return new ResponseEntity<>(seatService.getSeat(id),HttpStatus.OK);
+    @GetMapping(value="/date/{id}")
+    public ResponseEntity<Object> getDate(@PathVariable("id") long id){
+        return new ResponseEntity<>(dateService.getDate(id),HttpStatus.OK);
     }
 
-    @PostMapping(value="/seats")
-    public ResponseEntity<Object> createSeat(@RequestBody Seat seat){
-        seatService.save(seat);
-        return new ResponseEntity<>("Seat Created",HttpStatus.CREATED);
+    @PostMapping(value="/date")
+    public ResponseEntity<Object> createDate(@RequestBody Date date){
+        dateService.save(date);
+        return new ResponseEntity<>("Date Created",HttpStatus.CREATED);
     }
 
-    @DeleteMapping (value="/seats/{id}")
-    public ResponseEntity<Object> deleteSeat(@PathVariable("id") long id){
-        seatService.deleteById(id);
-        return new ResponseEntity<>("Seat deleted", HttpStatus.OK);
+    @DeleteMapping (value="/date/{id}")
+    public ResponseEntity<Object> deleteDate(@PathVariable("id") long id){
+        dateService.deleteById(id);
+        return new ResponseEntity<>("Date deleted", HttpStatus.OK);
     }
 
 }
