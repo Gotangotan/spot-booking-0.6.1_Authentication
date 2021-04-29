@@ -3,6 +3,7 @@ package nl.spotbooking.spotbooking.model;
 //POJO - Plain Old Java Object
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Date {
@@ -19,6 +20,10 @@ public class Date {
 
     @Column
     private String Availability;
+
+    @OneToMany (mappedBy = "date")
+    List<Desk> dates;
+
 
 
     //getters and setters
