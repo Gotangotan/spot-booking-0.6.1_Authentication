@@ -18,9 +18,6 @@ public class Date {
     @Column
     private String Date;
 
-    @Column
-    private String Availability;
-
     @OneToMany (mappedBy = "date")
     List<Desk> dates;
 
@@ -36,11 +33,4 @@ public class Date {
         Date = date;
     }
 
-    public String getAvailability() {
-        return Availability;
-    }
-
-    public void setAvailability(String availability) {
-        Availability = availability;
-    }
 }

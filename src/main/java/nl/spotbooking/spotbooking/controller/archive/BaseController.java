@@ -1,4 +1,4 @@
-package nl.spotbooking.spotbooking.controller;
+package nl.spotbooking.spotbooking.controller.archive;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
