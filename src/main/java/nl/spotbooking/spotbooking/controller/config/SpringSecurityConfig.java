@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
+public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -36,5 +36,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
                 .and()
                 .csrf().disable()
                 .formLogin().disable();
+
     }
 }
