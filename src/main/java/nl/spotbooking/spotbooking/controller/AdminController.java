@@ -14,6 +14,6 @@ public class AdminController {
     @CrossOrigin
     @GetMapping(value="/admin")
     public ResponseEntity<Object> getAdmin() {
-        return new ResponseEntity<>("/Info endpoint available for admin", HttpStatus.OK);
+        return new ResponseEntity<>("SECURED REST endpoint: /admin", HttpStatus.OK);
     }
 }

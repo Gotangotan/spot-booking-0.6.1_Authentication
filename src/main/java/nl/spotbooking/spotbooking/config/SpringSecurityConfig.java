@@ -1,4 +1,4 @@
-package nl.spotbooking.spotbooking.controller.config;
+package nl.spotbooking.spotbooking.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,20 +11,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private DataSource dataSource;
+    public CustomUserDetailsService customUserDetailsService;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.jdbcAuthentication().dataSource(dataSource);
-
+        auth.userDetailsService(customUserDetailsService);
     }
 
     @Bean
@@ -32,22 +28,25 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    // Secure the endpoins with HTTP Basic authentication
+    // Secure the endpoints with HTTP Basic authentication
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                //HTTP Basic authentication
-                .httpBasic()
+            //HTTP Basic authentication
+            .httpBasic()
                 .and()
-                .authorizeRequests()
+            .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/desk/**").hasRole("USER")
+                .antMatchers(HttpMethod.GET, "/desk/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET,"/authenticated/**").authenticated()
+                .antMatchers(HttpMethod.GET, "/users/**").hasRole("USER")
+                .antMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/authenticated/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .csrf().disable()
-                .formLogin().disable();
+            .csrf().disable()
+            .formLogin().disable();
     }
 
 }
